@@ -85,34 +85,31 @@ st.markdown("<div class='description'>Guiding you to unforgettable reads</div>",
 # function to load images
 def get_image(link):
     try:
+        # Headers adicionados aqui
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
         }
         request = urllib.request.Request(link, headers=headers)
         return Image.open(urllib.request.urlopen(request))
-    except:
+    except Exception as e:
+        st.warning(f"Não foi possível carregar a imagem: {str(e)}")
         return None
 
 #load saved data from ipynb
 @st.cache_data
 def load_data():
     Matrix = pd.read_csv("books_processed2.csv", index_col=0)
+    
+    # Modificação aqui com headers
     crosstab_file_id = '13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3'
     crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    crosstab = pd.read_csv(crosstab_url, storage_options=headers)
     
-     # Versão com tratamento robusto
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        crosstab = pd.read_csv(crosstab_url, storage_options=headers)
-        st.success("Dados do crosstab carregados com sucesso!")
-    except Exception as e:
-        st.error(f"Falha ao carregar crosstab: {str(e)}")
-        crosstab = pd.DataFrame()  # Fallback seguro
-   
     with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
+    
     return Matrix, crosstab, model
-
 Matrix, crosstab, Model = load_data()
 
 
