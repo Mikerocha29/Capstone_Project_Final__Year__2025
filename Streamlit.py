@@ -97,9 +97,9 @@ def get_image(link):
 @st.cache_data
 def load_data():
     Matrix = pd.read_csv("books_processed2.csv", index_col=0)
-    file_id = '1cpPrpcQnG1ApQXqpfEB9hnfJwdjYVOKh'
-    url = f'https://drive.google.com/uc?id={file_id}'
-    crosstab = pd.read_csv(url)
+    crosstab_file_id = '13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3'
+    crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'
+    crosstab = pd.read_csv(crosstab_url)
     with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
     return Matrix, crosstab, model
