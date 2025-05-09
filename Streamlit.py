@@ -24,7 +24,7 @@ st.markdown("""
         .description {
             text-align: center;
             font-size: 18px;
-            color: #2c3e50;
+            color: #2c3e50;--
             margin-bottom: 40px;
         }
         .recommend-card {
@@ -97,7 +97,9 @@ def get_image(link):
 @st.cache_data
 def load_data():
     Matrix = pd.read_csv("books_processed2.csv", index_col=0)
-    crosstab = pd.read_csv("crosstab.csv")
+    file_id = '1cpPrpcQnG1ApQXqpfEB9hnfJwdjYVOKh'
+    url = f'https://drive.google.com/uc?id={file_id}'
+    crosstab = pd.read_csv(url)
     with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
     return Matrix, crosstab, model
