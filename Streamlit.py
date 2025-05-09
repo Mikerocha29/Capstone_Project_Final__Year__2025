@@ -99,7 +99,16 @@ def load_data():
     Matrix = pd.read_csv("books_processed2.csv", index_col=0)
     crosstab_file_id = '13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3'
     crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'
-    crosstab = pd.read_csv(crosstab_url)
+    
+     # Versão com tratamento robusto
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        crosstab = pd.read_csv(crosstab_url, storage_options=headers)
+        st.success("Dados do crosstab carregados com sucesso!")
+    except Exception as e:
+        st.error(f"Falha ao carregar crosstab: {str(e)}")
+        crosstab = pd.DataFrame()  # Fallback seguro
+   
     with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
     return Matrix, crosstab, model
