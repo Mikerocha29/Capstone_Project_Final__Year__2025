@@ -1,11 +1,11 @@
-streamlit
-pandas
-sklearn
-numpy
-matplotlib
-seaborn
-plotly
-PIL
-urllib3
-requests
-joblib
+import streamlit
+import pandas
+import sklearn
+import numpy
+import matplotlib
+import seaborn
+import plotly
+import PIL
+import urllib3
+import requests
+import joblib
