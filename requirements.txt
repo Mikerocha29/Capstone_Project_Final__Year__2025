@@ -1,11 +1,8 @@
-import streamlit
-import pandas
-import sklearn
-import numpy
-import matplotlib
-import seaborn
-import plotly
-import PIL
-import urllib3
-import requests
-import joblib
+streamlit
+pandas
+scikit-learn
+numpy
+matplotlib
+seaborn
+plotly
+Pillow
