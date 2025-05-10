@@ -1,8 +1,11 @@
 streamlit
 pandas
-scikit-learn
+sklearn
 numpy
 matplotlib
 seaborn
 plotly
-Pillow
+PIL
+urllib3
+requests
+joblib
