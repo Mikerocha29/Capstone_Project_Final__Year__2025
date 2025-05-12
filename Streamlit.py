@@ -103,7 +103,9 @@ def load_data():
     # Modificação aqui com headers
     crosstab_file_id = '13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3'
     crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+        }
     crosstab = pd.read_csv(crosstab_url, storage_options=headers)
     
     with open("knn_model.pkl", "rb") as file:
