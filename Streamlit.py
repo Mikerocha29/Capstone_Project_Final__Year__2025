@@ -101,26 +101,16 @@ def get_image(link):
 #load saved data from ipynb
 @st.cache_data
 def load_data():
-    # Carrega Matrix localmente
-    Matrix = pd.read_csv("books_processed2.csv", index_col=0)
+     Matrix = pd.read_csv("books_processed2.csv", index_col=0)
 
-    # Link do CSV no Google Drive
-    file_id = "13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3"
-    download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+     file_id = "13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3"
+     csv_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+     crosstab = pd.read_csv(csv_url)
+     crosstab.columns = crosstab.columns.str.strip()
 
-    try:
-        response = requests.get(download_url)
-        response.raise_for_status()  # dispara erro se status != 200
-        crosstab = pd.read_csv(io.StringIO(response.text))
-    except Exception as e:
-        st.error(f"Erro ao carregar o crosstab: {str(e)}")
-        return None, None, None
-
-    # Carrega modelo localmente
-    with open("knn_model.pkl", "rb") as file:
+     with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
-
-    return Matrix, crosstab, model
+     return Matrix, crosstab, model
 # Executa o carregamento
 Matrix, crosstab, Model = load_data()
 
