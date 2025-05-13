@@ -102,8 +102,7 @@ def load_data():
     
     # Modificação aqui com headers
     crosstab_file_id = '13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3'
-    crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'
-    
+    crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'    
     crosstab = pd.read_csv(crosstab_url)
     
     with open("knn_model.pkl", "rb") as file:
@@ -125,6 +124,8 @@ if st.button(" Recommend Books"):
         _, indices = Model.kneighbors(book_vector, n_neighbors=num_recommendations + 1)
 
         st.markdown("<div class='recommend-title-section'>📚 Recommended Books</div>", unsafe_allow_html=True)
+
+        st.write("Colunas do Crosstab:", crosstab.columns.tolist())
 
         recommended_books = []
 
