@@ -6,6 +6,4 @@ matplotlib
 seaborn
 plotly
 Pillow
-PIL 
-io
 requests
