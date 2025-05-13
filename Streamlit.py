@@ -3,6 +3,9 @@ import pandas as pd
 import pickle
 import urllib.request
 from PIL import Image
+import io
+import requests
+
 
 st.set_page_config(page_title="BookVerse Recommendation", page_icon="📚", layout="centered")
 
@@ -98,19 +101,28 @@ def get_image(link):
 #load saved data from ipynb
 @st.cache_data
 def load_data():
+    # Carrega o Matrix como antes
     Matrix = pd.read_csv("books_processed2.csv", index_col=0)
-    
-    # Modificação aqui com headers
+
+    # ID do arquivo no Google Drive (não do Google Docs)
     crosstab_file_id = '13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3'
-    crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'    
-    crosstab = pd.read_csv(crosstab_url)
-    
+    crosstab_url = f'https://drive.google.com/uc?export=download&id={crosstab_file_id}'
+
+    # Baixar e carregar o arquivo CSV do Google Drive
+    response = requests.get(crosstab_url)
+    if response.status_code != 200:
+        st.error("Erro ao baixar o crosstab do Google Drive.")
+        return None, None, None
+    crosstab = pd.read_csv(io.StringIO(response.text))
+
+    # Carrega o modelo treinado
     with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
-    
-    return Matrix, crosstab, model
-Matrix, crosstab, Model = load_data()
 
+    return Matrix, crosstab, model
+
+# Executa o carregamento
+Matrix, crosstab, Model = load_data()
 
 selected_book = st.selectbox(" Choose a book you’ve already read:", Matrix.index.tolist())
 
@@ -124,8 +136,6 @@ if st.button(" Recommend Books"):
         _, indices = Model.kneighbors(book_vector, n_neighbors=num_recommendations + 1)
 
         st.markdown("<div class='recommend-title-section'>📚 Recommended Books</div>", unsafe_allow_html=True)
-
-        crosstab = pd.read_csv("crosstab.csv", header=0)
 
 
         recommended_books = []
