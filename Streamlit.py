@@ -125,7 +125,8 @@ if st.button(" Recommend Books"):
 
         st.markdown("<div class='recommend-title-section'>📚 Recommended Books</div>", unsafe_allow_html=True)
 
-        st.write("Colunas do Crosstab:", crosstab.columns.tolist())
+        crosstab = pd.read_csv("crosstab.csv", header=0)
+
 
         recommended_books = []
 
