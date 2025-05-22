@@ -103,10 +103,10 @@ def get_image(link):
 def load_data():
      Matrix = pd.read_csv("books_processed2.csv", index_col=0)
 
-     file_id = "13wx1Dqmqy-gGfRqxsicWozLg6GQJnNB3"
-     csv_url = f"https://drive.google.com/uc?export=download&id={file_id}"
-     crosstab = pd.read_csv(csv_url)
-     crosstab.columns = crosstab.columns.str.strip()
+     url = "https://www.dropbox.com/scl/fi/cj03wv4cj2h3v33bdazql/crosstab.csv?rlkey=r9jpcszuvvus3z4wsvmdniypv&st=6c1fq8ct&dl=1"
+
+# Leitura do arquivo
+     crosstab = pd.read_csv(url)
 
      with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
