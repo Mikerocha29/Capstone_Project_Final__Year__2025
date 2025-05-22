@@ -88,7 +88,7 @@ st.markdown("<div class='description'>Guiding you to unforgettable reads</div>",
 # function to load images
 def get_image(link):
     try:
-        # Headers adicionados aqui
+        # Headers 
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
         }
@@ -105,13 +105,13 @@ def load_data():
 
      url = "https://www.dropbox.com/scl/fi/cj03wv4cj2h3v33bdazql/crosstab.csv?rlkey=r9jpcszuvvus3z4wsvmdniypv&st=6c1fq8ct&dl=1"
 
-# Leitura do arquivo
+# read a csv file from dropbox
      crosstab = pd.read_csv(url)
 
      with open("knn_model.pkl", "rb") as file:
         model = pickle.load(file)
      return Matrix, crosstab, model
-# Executa o carregamento
+# 
 Matrix, crosstab, Model = load_data()
 
 selected_book = st.selectbox(" Choose a book you’ve already read:", Matrix.index.tolist())
